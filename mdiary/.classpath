@@ -23,7 +23,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/Users/finneon/Documents/workspace/powermock-easymock-1.5.6-full.jar"/>
-	<classpathentry kind="lib" path="/Users/finneon/Documents/workspace/easymock-3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/St/Downloads/easymock-3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/St/Downloads/powermock-easymock-1.5.6-full.jar"/>
+	<classpathentry kind="lib" path="C:/Users/St/Downloads/sqlite-jdbc-3.8.7.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -42,7 +42,7 @@ public class MDiary implements Diary
 	{
 		try
 		{
-			EntryDAO dao = new EntryDAO(getDBC(), "movie");
+			EntryDAO dao = new EntryDAO(getDBC(), "movies");
 			dao.update(entry);
 			dao.close();
 		}
@@ -56,7 +56,7 @@ public class MDiary implements Diary
 	{
 		try
 		{
-			EntryDAO dao = new EntryDAO(getDBC(), "movie");
+			EntryDAO dao = new EntryDAO(getDBC(), "movies");
 			dao.delete(entry);
 			dao.close();
 		}
@@ -70,7 +70,7 @@ public class MDiary implements Diary
 	{
 		try
 		{
-			EntryDAO dao = new EntryDAO(getDBC(), "movie");
+			EntryDAO dao = new EntryDAO(getDBC(), "movies");
 			dao.create(entry);
 			dao.close();
 		}
@@ -86,7 +86,7 @@ public class MDiary implements Diary
 	{
 		try
 		{
-			EntryDAO dao = new EntryDAO(getDBC(), "movie");
+			EntryDAO dao = new EntryDAO(getDBC(), "movies");
 			Entry entrie = dao.getEntityById(id);
 			dao.close();
 			return entrie;
@@ -102,7 +102,7 @@ public class MDiary implements Diary
 	{
 		try
 		{
-			EntryDAO dao = new EntryDAO(getDBC(), "movie");
+			EntryDAO dao = new EntryDAO(getDBC(), "movies");
 			List<Entry> entries = dao.getAllEntities();
 			dao.close();
 			

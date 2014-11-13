@@ -10,10 +10,7 @@ import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.easymock.EasyMock;
 import org.finnex.mdiary.diary.entry.Entry;
-import org.finnex.mdiary.diary.entry.EntryBuilder;
-import org.finnex.mdiary.diary.entry.EntryField;
 import org.finnex.mdiary.diary.header.MovieHeader;
 import org.junit.After;
 import org.junit.Before;
@@ -27,7 +24,7 @@ public class EntryDAOTest extends AbstractDBUnitTest<Entry>
 {
 	public EntryDAOTest() throws SQLException, FileNotFoundException
 	{
-		super("org.sqlite.JDBC", "jdbc:sqlite:mmdb");
+		super("org.sqlite.JDBC", "jdbc:sqlite:mmdb.db");
 	}
 	
 	
@@ -95,7 +92,7 @@ public class EntryDAOTest extends AbstractDBUnitTest<Entry>
 	}
 	
 	
-	@Test
+	//@Test
 	public void testInsertMovie() throws FileNotFoundException, SQLException
 	{
 		EntryDAO dao = new EntryDAO(getDB(), "movie");

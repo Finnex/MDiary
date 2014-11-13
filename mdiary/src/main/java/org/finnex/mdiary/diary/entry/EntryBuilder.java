@@ -61,7 +61,7 @@ public class EntryBuilder {
 	{
 		List<String> colNames = getMissingColumns();
 		
-		if(colNames.isEmpty())
+		if(!colNames.isEmpty())
 		{
 			String msg = "Significant columns are missing: ";
 			throw new EntryBuilderException(msg+colNames.toString());
