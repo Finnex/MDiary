@@ -3,6 +3,8 @@
  */
 package org.finnex.mdiary.diary.header;
 
+import org.finnex.mdiary.diary.header.validator.Validator;
+
 /**
  * @author finneon
  *
@@ -34,6 +36,12 @@ public class Column
 	public Validator getValidator()
 	{
 		return val;
+	}
+
+
+	@Override
+	public String toString() {
+		return name+"-Column";
 	}
 
 }

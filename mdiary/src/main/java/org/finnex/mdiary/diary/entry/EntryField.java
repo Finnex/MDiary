@@ -25,6 +25,9 @@ public class EntryField<E>
 	}
 	
 	
+	/**
+	 * returns a String representation of the contained value.
+	 */
 	public String toString()
 	{
 		return value.toString();

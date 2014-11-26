@@ -29,8 +29,8 @@ public abstract class AbstractDAO<T extends AbstractEntity>
    */
   public T getEntityById(long id)
   {
-    final String sql = "select * from " + TABLENAME + " where id_ = " + id;
-    return queryForSingleEntity(sql, false);
+	  final String sql = "select * from " + TABLENAME + " where id = " + id;
+	  return queryForSingleEntity(sql, false);
   }
 
 

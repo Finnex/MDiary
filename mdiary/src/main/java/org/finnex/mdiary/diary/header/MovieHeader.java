@@ -3,12 +3,14 @@
  */
 package org.finnex.mdiary.diary.header;
 
+import org.finnex.mdiary.diary.header.validator.TextValidator;
+
 /**
  * @author finneon
  *
  */
 public class MovieHeader
-	extends AbstractHeader
+	extends DefaultHeader
 		implements Header
 {
 
@@ -19,11 +21,10 @@ public class MovieHeader
 	private MovieHeader()
 	{
 		super(
-				new Column("No.", null),
-				new Column("Title", null),
-				new Column("Description", null),
-				new Column("Feedback", null),
-				new Column("Genre", null),
+				new Column("Title", new TextValidator()),
+				new Column("Description", new TextValidator()),
+				new Column("Feedback", new TextValidator()),
+				new Column("Genre", new TextValidator()),
 				new Column("Stars", null)
 		);
 	}

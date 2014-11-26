@@ -31,7 +31,6 @@ public class EntryDAO extends AbstractDAO<Entry> {
 	protected Entry createNewEntityFromResultSet(ResultSet rs)
 	{
 		MovieHeader header = MovieHeader.getInstance();
-		Column no = header.getColumnByName("No.");
 		Column title = header.getColumnByName("Title");
 		Column desc = header.getColumnByName("Description");
 		Column feedback = header.getColumnByName("Feedback");
@@ -40,21 +39,22 @@ public class EntryDAO extends AbstractDAO<Entry> {
 		
 		try
 		{
-			EntryField<Long> noField = new EntryField<Long>(rs.getLong("nr"));
 			EntryField<String> titleField = new EntryField<String>(rs.getString("title"));
-			EntryField<String> descField = new EntryField<String>(rs.getString("Description"));
-			EntryField<String> fdField = new EntryField<String>(rs.getString("Feedback"));
+			EntryField<String> descField = new EntryField<String>(rs.getString("description"));
+			EntryField<String> fdField = new EntryField<String>(rs.getString("feedback"));
 			EntryField<String> genreField = new EntryField<String>(rs.getString("genre"));
 			EntryField<Integer> starsField = new EntryField<Integer>(rs.getInt("stars"));
 
-			return new EntryBuilder(header)
-				.addField(no.getName(), noField)
+			Entry e = new EntryBuilder(header)
 				.addField(title.getName(), titleField)
 				.addField(desc.getName(), descField)
 				.addField(feedback.getName(), fdField)
 				.addField(genre.getName(), genreField)
 				.addField(stars.getName(), starsField)
 				.build();
+			
+			e.setId(rs.getLong("id"));
+			return e;
 		}
 		catch (EntryBuilderException | SQLException e)
 		{
@@ -67,7 +67,6 @@ public class EntryDAO extends AbstractDAO<Entry> {
 	{
 		Header header = MovieHeader.getInstance();
 		
-		Column no = header.getColumnByName("No.");
 		Column title = header.getColumnByName("Title");
 		Column desc = header.getColumnByName("Description");
 		Column feedback = header.getColumnByName("Feedback");
@@ -76,21 +75,18 @@ public class EntryDAO extends AbstractDAO<Entry> {
 		
 		//TODO more dynamic query for update-SQL 
 		return "update "+TABLENAME+" set "+
-				title.getName()   +" = "+ obj.getField(title)+ ", "+
-				desc.getName()    +" = "+ obj.getField(desc)+ ", "+
-				feedback.getName()+" = "+ obj.getField(feedback)+ ", "+
-				genre.getName()   +" = "+ obj.getField(genre)+ ", "+
-				stars.getName()   +" 0 "+ obj.getField(stars)+ " "+
-				"where "+no.getName()+ " = "+obj.getField(no);
+				title.getName()   +" = '"+ obj.getField(title)+ "', "+
+				desc.getName()    +" = '"+ obj.getField(desc)+ "', "+
+				feedback.getName()+" = '"+ obj.getField(feedback)+ "', "+
+				genre.getName()   +" = '"+ obj.getField(genre)+ "', "+
+				stars.getName()   +" = "+ obj.getField(stars)+ " "+
+				"where id = "+obj.getId();
 	}
 
 	@Override
 	protected String createDeleteSQL(Entry obj)
 	{
-		MovieHeader header = MovieHeader.getInstance();
-		Column entryId = header.getColumnByName("No.");
-		
-		return "delete from "+TABLENAME+" where"+obj.getField(entryId);
+		return "delete from "+TABLENAME+" where id = "+obj.getId();
 	}
 
 	@Override
@@ -104,17 +100,21 @@ public class EntryDAO extends AbstractDAO<Entry> {
 		
 		for(Column col : columns)
 		{
-			headerNames.append(col);
-			entryContent.append(obj.getField(col));
-			
-			if(columns.indexOf(col) != (columns.size()-1))
+			if(!col.getName().equals("No."))
 			{
-				headerNames.append(", ");
-				entryContent.append(", ");
+				headerNames.append(col);
+				entryContent.append("'"+obj.getField(col).toString()+"'");
+				
+				if(columns.indexOf(col) != (columns.size()-1))
+				{
+					headerNames.append(", ");
+					entryContent.append(", ");
+				}
 			}
+			
 		}
 		
-		return "insert into "+TABLENAME+" ("+headerNames.toString()+")"
+		return "insert into "+TABLENAME+" (title, description, feedback, genre, stars)"
 			+ "values ("+entryContent.toString()+")";
 	}
 	

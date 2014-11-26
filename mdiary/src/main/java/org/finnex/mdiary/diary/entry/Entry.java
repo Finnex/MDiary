@@ -20,7 +20,7 @@ public class Entry extends AbstractEntity
 	
 	void addField(Column col, EntryField<?> field)
 	{
-		if(col == null && field == null)
+		if(col == null || field == null)
 		{
 			throw new IllegalArgumentException();
 		}

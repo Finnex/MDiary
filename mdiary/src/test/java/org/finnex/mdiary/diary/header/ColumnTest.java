@@ -4,9 +4,10 @@
 package org.finnex.mdiary.diary.header;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 
+import org.easymock.EasyMock;
+import org.finnex.mdiary.diary.header.validator.Validator;
 import org.junit.Test;
 
 /**
@@ -21,6 +22,18 @@ public class ColumnTest {
 		Column col = new Column("Test", null);
 		assertThat(col.getName(), equalTo("Test"));
 		assertThat(col.getValidator(), nullValue(Validator.class));
+	}
+	
+	
+	@Test
+	public void testSetupColumnWithValidatorSuccessFully()
+	{
+		Validator val = EasyMock.createMock(Validator.class);
+		EasyMock.replay(val);
+		
+		Column col = new Column("Test", val);
+		assertThat(col.getName(), equalTo("Test"));
+		assertThat(col.getValidator(), notNullValue(Validator.class));
 	}
 	
 	

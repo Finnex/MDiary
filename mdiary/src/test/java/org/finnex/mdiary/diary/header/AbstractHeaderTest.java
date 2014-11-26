@@ -16,8 +16,8 @@ public class AbstractHeaderTest
 	@Test
 	public void testGetColumnByName()
 	{
-		AbstractHeader header = PowerMock.
-				createPartialMockForAllMethodsExcept(AbstractHeader.class, "getColumnByName");
+		DefaultHeader header = PowerMock.
+				createPartialMockForAllMethodsExcept(DefaultHeader.class, "getColumnByName");
 		
 		List<Column> column = new ArrayList<Column>();
 		Column testColumn = new Column("Test", null);
@@ -35,8 +35,8 @@ public class AbstractHeaderTest
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetColumnByNameWithNull()
 	{
-		AbstractHeader header = PowerMock.
-				createPartialMockForAllMethodsExcept(AbstractHeader.class, "getColumnByName");
+		DefaultHeader header = PowerMock.
+				createPartialMockForAllMethodsExcept(DefaultHeader.class, "getColumnByName");
 		
 		List<Column> column = new ArrayList<Column>();
 		Column testColumn = new Column("Test", null);

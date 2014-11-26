@@ -34,15 +34,24 @@ public class MDiary implements Diary
 	public MDiary()
 	{
 		//TODO How to prepare this class for unit tests?
-		//TODO out-source the EntryDAO! 
-		//TODO implement the EntryService to ensure security for users. 
+		//TODO out-source the EntryDAO!
+		//TODO implement the EntryService to ensure security for users.
 	}
 
 	public void updateEntry(Entry entry) throws DiaryException
 	{
 		try
 		{
-			EntryDAO dao = new EntryDAO(getDBC(), "movies");
+			new EntryValidator(MovieHeader.getInstance()).validate(entry);
+		}
+		catch (ValidatorException e1)
+		{
+			throw new DiaryException(e1);
+		}
+		
+		try
+		{
+			EntryDAO dao = new EntryDAO(getDBC(), "movie");
 			dao.update(entry);
 			dao.close();
 		}
@@ -56,7 +65,7 @@ public class MDiary implements Diary
 	{
 		try
 		{
-			EntryDAO dao = new EntryDAO(getDBC(), "movies");
+			EntryDAO dao = new EntryDAO(getDBC(), "movie");
 			dao.delete(entry);
 			dao.close();
 		}
@@ -70,7 +79,16 @@ public class MDiary implements Diary
 	{
 		try
 		{
-			EntryDAO dao = new EntryDAO(getDBC(), "movies");
+			new EntryValidator(MovieHeader.getInstance()).validate(entry);
+		}
+		catch (ValidatorException e1)
+		{
+			throw new DiaryException(e1);
+		}
+		
+		try
+		{
+			EntryDAO dao = new EntryDAO(getDBC(), "movie");
 			dao.create(entry);
 			dao.close();
 		}
@@ -86,7 +104,7 @@ public class MDiary implements Diary
 	{
 		try
 		{
-			EntryDAO dao = new EntryDAO(getDBC(), "movies");
+			EntryDAO dao = new EntryDAO(getDBC(), "movie");
 			Entry entrie = dao.getEntityById(id);
 			dao.close();
 			return entrie;
@@ -102,7 +120,7 @@ public class MDiary implements Diary
 	{
 		try
 		{
-			EntryDAO dao = new EntryDAO(getDBC(), "movies");
+			EntryDAO dao = new EntryDAO(getDBC(), "movie");
 			List<Entry> entries = dao.getAllEntities();
 			dao.close();
 			
